@@ -9,6 +9,7 @@ import (
 	day6 "2024/06"
 	day7 "2024/07"
 	day8 "2024/08"
+	day9 "2024/09"
 	"log"
 	"os"
 	"strconv"
@@ -43,6 +44,8 @@ func main() {
 		day7.Run()
 	case 8:
 		day8.Run()
+	case 9:
+		day9.Run()
 	default:
 		log.Println("Day not implemented yet.")
 	}
