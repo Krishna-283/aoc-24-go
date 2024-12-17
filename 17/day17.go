@@ -106,8 +106,9 @@ func (cpu *Cpu) findMatchingA(targetOutput []int, targetA int) int {
 	}
 	results := []int{}
 	for i := targetA * 8; i < (targetA+1)*8; i++ {
-		b, newA := cpu.simulateProgram(i)
-		if newA != targetA {
+		cpu.A = i
+		b := cpu.simulateProgram()
+		if cpu.A != targetA {
 			panic("newA != targetA")
 		}
 		if b == targetOutput[len(targetOutput)-1] {
@@ -123,9 +124,8 @@ func (cpu *Cpu) findMatchingA(targetOutput []int, targetA int) int {
 	return slices.Min(results)
 }
 
-func (cpu *Cpu) simulateProgram(a int) (int, int) {
+func (cpu *Cpu) simulateProgram() int {
 	cpu.IP = 0
-	cpu.A = a
 	for cpu.Program[cpu.IP] != 5 {
 		cpu.executeInstruction()
 	}
@@ -134,5 +134,5 @@ func (cpu *Cpu) simulateProgram(a int) (int, int) {
 	for cpu.Program[cpu.IP] != 3 {
 		cpu.executeInstruction()
 	}
-	return output, cpu.A
+	return output
 }
